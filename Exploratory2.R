@@ -3,7 +3,7 @@
 library(stringdist)
 
 # It creates a matrix with the Standard Levenshtein distance between the name fields of both sources
-n=1000
+n=100
 dist.name<-adist(head(ds_nomatch_cvr$virksomhed,n),ds_cvr$navn_tekst ,partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
 # We now take the pairs with the minimum distance
 min.name<-apply(dist.name, 1, min)
