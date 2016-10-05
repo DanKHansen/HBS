@@ -6,14 +6,20 @@ library(dplyr)
 
 setwd("~/GIT/HBS")
 
-ds1 <- read.csv("IT0808.txt", header = TRUE, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "Latin1", na.strings = c('', ' '))
-ds2 <- read.csv("IT0910.txt", header = TRUE, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "Latin1", na.strings = c('', ' '))
-ds3 <- read.csv("IT1112.txt", header = TRUE, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "Latin1", na.strings = c('', ' '))
-ds4 <- read.csv("IT1314.txt", header = TRUE, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "Latin1", na.strings = c('', ' '))
+ds1 <- read.delim("IT0808.txt", encoding = 'UTF-8')
+ds2 <- read.delim("IT0910.txt", encoding = 'UTF-8')
+ds3 <- read.delim("IT1112.txt", encoding = 'UTF-8')
+ds4 <- read.delim("IT1314.txt", encoding = 'UTF-8')
 ds <- rbind(ds1,ds2,ds3,ds4)
-#fjern variablerne kilde og uklar
-ds <- subset(ds, select = -c(kilde,uklar))
 
+#fjern variablerne kilde og uklar
+ds <- subset(ds, select = -c(url,kilde,undertitel,annoncetekst,uklar))
+#gem som csv
+write.csv(ds,'ds.csv', row.names = FALSE)
+
+remove(ds1,ds2,ds3,ds4)
+
+ds <- read.csv('ds.csv', header= TRUE, sep = "," ,encoding = 'MS-ANSI', stringsAsFactors = FALSE, na.strings = c('',' '))
 #fjern alle hvor længden af postnummer er forskellig fra 4
 #I de rækker der indeholder mere end et postnummer kan arbejdstedet ikke bestemmes entydigt.
 #postnummer værdier som f. eks. københavn, skaane osv. kan ikke ikke bestemmes entydigt.
