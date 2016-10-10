@@ -31,12 +31,15 @@ ds$virksomhed <- tolower(ds$virksomhed)
 #og sæt navn_tekst til lower case
 ds_cvr <- read.csv("39265897_93207_20160808134952_VIRKSOMHEDER.csv", header=TRUE, stringsAsFactors=FALSE)
 ds_cvr$livsforloeb_startdato <- as.Date(ds_cvr$livsforloeb_startdato,'%d-%m-%Y')
-ds_cvr <- filter(ds_cvr, as.numeric(format(livsforloeb_startdato,'%Y')) < 2009)
+ds_cvr <- filter(ds_cvr, format(ds_cvr$livsforloeb_startdato,'%Y') < '2009')
 ds_cvr$navn_tekst <- tolower(ds_cvr$navn_tekst)
+
+ds_cvr <- subset(ds_cvr, select = c(cvrnr, navn_tekst, beliggenhedsadresse_vejnavn, beliggenhedsadresse_husnummerFra, beliggenhedsadresse_bogstavFra, beliggenhedsadresse_postnr, beliggenhedsadresse_postdistrikt, beliggenhedsadresse_bynavn, beliggenhedsadresse_kommune_tekst))
 
 #fjern evt. leading og trailing whitespaces
 ds$virksomhed <- trimws(ds$virksomhed, which = 'both')
 ds_cvr$navn_tekst <- trimws(ds_cvr$navn_tekst, which = 'both')
+
 
 #ds_postnr <- read.csv('http://dawa.aws.dk/postnumre?format=csv')
 
