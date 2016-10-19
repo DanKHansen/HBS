@@ -1,14 +1,16 @@
 
-# Prøv også stringdist for at finde approximeret trenglighed.
+# Prøv også stringdist for at finde approximeret streng lighed.
 library(stringdist)
-
 # It creates a matrix with the Standard Levenshtein distance between the name fields of both sources
 n=100
-dist.name<-adist(head(ds_nomatch_cvr$virksomhed,n),ds_cvr$navn_tekst ,partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
+
+# dist.name<-stringdistmatrix(ds_nomatch_cvr$virksomhed,ds_cvr$navn_tekst, method = 'lv', useBytes = T)
+# dist.name<-adist(head(ds_nomatch_cvr$virksomhed,n),ds_cvr$navn_tekst ,partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
+
 # We now take the pairs with the minimum distance
 min.name<-apply(dist.name, 1, min)
 
-match.s1.s2<-NULL  
+match.s1.s2<-NULL
 for(i in 1:nrow(dist.name))
 {
     s2.i<-match(min.name[i],dist.name[i,])
