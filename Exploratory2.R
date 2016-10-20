@@ -4,7 +4,7 @@ Matches <- NULL
 for (n in 1:10)
     {
     dist.name<-adist(distinct_nm[n,],ds_cvr$navn_tekst, partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
-    if (min(dist.name) == 0) Matches <- rbind(data.frame(counter=n, no.match.name=distinct_nm[n,],cvr.name=ds_cvr[which.min(dist.name),"navn_tekst"],levenshtein.distance=min(dist.name)),Matches)
+    if (min(dist.name) <= 1) Matches <- rbind(data.frame(counter=n, no.match.name=distinct_nm[n,],cvr.name=ds_cvr[which.min(dist.name),"navn_tekst"],levenshtein.distance=min(dist.name)),Matches)
 }
 
 View(Matches)

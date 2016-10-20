@@ -50,10 +50,10 @@ distinct_nm <- distinct(ds_nomatch_cvr, virksomhed)
 #benyt adist() til at finde bedste match mellem de to datasæt
 #Levenshtein Distance:
 #check entry i ds_nomatch_virk$virksomhed op imod ds_virk$navn_tekst
-# n=6
-#     testdist <- adist(ds_nomatch_cvr$virksomhed[n], ds_cvr$navn_tekst, fixed = T, useBytes = TRUE)
-#     print(ds_nomatch_cvr[n,"virksomhed"])
-#     print(ds_cvr[which.min(testdist),"navn_tekst"])
+n=6
+    testdist <- adist(distinct_nm[n,], ds_cvr$navn_tekst, fixed = T, useBytes = TRUE)
+     print(distinct_nm[n,])
+     print(ds_cvr[which.min(testdist),"navn_tekst"])
 
 
 
