@@ -1,4 +1,3 @@
-
 library(tidyr)
 library(dplyr)
 #library(stringi)
@@ -46,6 +45,7 @@ ds_cvr$navn_tekst <- trimws(ds_cvr$navn_tekst, which = 'both')
 #dplyr
 ds_match_cvr <- semi_join(ds,ds_cvr, by = c('virksomhed' = 'navn_tekst'))
 ds_nomatch_cvr <- anti_join(ds,ds_cvr, by = c('virksomhed' = 'navn_tekst'))
+distinct_nm <- distinct(ds_nomatch_cvr, virksomhed)
 
 #benyt adist() til at finde bedste match mellem de to datasæt
 #Levenshtein Distance:
