@@ -49,14 +49,17 @@ ds_nomatch_cvr <- anti_join(ds,ds_cvr, by = c('virksomhed' = 'navn_tekst'))
 distinct_nm <- distinct(ds_nomatch_cvr,virksomhed)
 cvr_names <- data.frame(virksomhed = ds_cvr$navn_tekst)
 
+n.max <- nrow(distint_nm)
 #benyt adist() til at finde bedste match mellem de to datasæt
 Matches <- NULL
-for (n in 1:nrow(distint_nm))
+start.time <- Sys.time()
+for (n in 1:n.max)
 {
     dist.name <- adist(distinct_nm[n,], cvr_names[,], partial = T, ignore.case = T, useBytes = T)
-    if (min(dist.name) <= 1) Matches <- rbind(data.frame(counter=n, no.match.name=distinct_nm[n,],cvr.name=cvr_names[which.min(dist.name),],levenshtein.distance=min(dist.name)),Matches)
+    if (min(dist.name) <= 0) Matches <- rbind(data.frame(counter=n, no.match.name=distinct_nm[n,],cvr.name=cvr_names[which.min(dist.name),],levenshtein.distance=min(dist.name)),Matches)
 }
-View(Matches)
+end.time <- Sys.time()
+end.time - start.time
 
 
 #skift invalid input ud i basis datasættet:
