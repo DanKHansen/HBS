@@ -53,7 +53,7 @@ cvr_names <- data.frame(virksomhed = ds_cvr$navn_tekst)
 Matches <- NULL
 for (n in 1:nrow(distint_nm))
 {
-    dist.name<-adist(distinct_nm[n,],cvr_names, partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
+    dist.name <- adist(distinct_nm[n,], cvr_names[,], partial = T, ignore.case = T, useBytes = T)
     if (min(dist.name) <= 1) Matches <- rbind(data.frame(counter=n, no.match.name=distinct_nm[n,],cvr.name=cvr_names[which.min(dist.name),],levenshtein.distance=min(dist.name)),Matches)
 }
 View(Matches)
