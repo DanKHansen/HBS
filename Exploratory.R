@@ -46,15 +46,15 @@ ds_cvr$navn_tekst <- trimws(ds_cvr$navn_tekst, which = 'both')
 ds_match_cvr <- semi_join(ds,ds_cvr, by = c('virksomhed' = 'navn_tekst'))
 ds_nomatch_cvr <- anti_join(ds,ds_cvr, by = c('virksomhed' = 'navn_tekst'))
 distinct_nm <- distinct(ds_nomatch_cvr,virksomhed)
+
 #benyt adist() til at finde bedste match mellem de to datasæt
-#Levenshtein Distance:
-#check entry i ds_nomatch_virk$virksomhed op imod ds_virk$navn_tekst
-df <- NULL
-for (n in 1:nrow(distinct_nm))
+Matches <- NULL
+for (n in 1:nrow(distint_nm))
 {
-    distance <- adist(distinct_nm[n,],ds_cvr$navn_tekst, partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
-    if (min(distance) == 0) df<-rbind(data.frame(counter=n, no.name=distinct_nm[n,], cvr.name=ds_cvr[which.min(distance),"navn_tekst"], levenshtein.distance=min(distance)), df)
+    dist.name<-adist(distinct_nm[n,],ds_cvr$navn_tekst, partial = TRUE, ignore.case = TRUE, useBytes = TRUE)
+    if (min(dist.name) <= 1) Matches <- rbind(data.frame(counter=n, no.match.name=distinct_nm[n,],cvr.name=ds_cvr[which.min(dist.name),"navn_tekst"],levenshtein.distance=min(dist.name)),Matches)
 }
+View(Matches)
 
 
 #skift invalid input ud i basis datasættet:
