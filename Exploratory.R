@@ -49,7 +49,7 @@ ds_nomatch_cvr <- anti_join(ds,ds_cvr, by = c('virksomhed' = 'navn_tekst'))
 distinct_nm <- distinct(ds_nomatch_cvr,virksomhed)
 cvr_names <- data.frame(virksomhed = ds_cvr$navn_tekst)
 
-n.max <- nrow(distint_nm)
+n.max <- nrow(distinct_nm)
 #benyt adist() til at finde bedste match mellem de to datasæt
 Matches <- NULL
 start.time <- Sys.time()
